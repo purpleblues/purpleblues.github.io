@@ -1,9 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
+img{
+    width:30%;
+    margin-right:10px;
+    margin-bottom:20px;
+    
+}
 
 span.skills{
+    background-color: #f2f2f2;
     display: inline-block;
-}
+    border-radius : 3px;
+} 
 
 body {
   padding:50px;
@@ -32,9 +40,9 @@ h1 {
 h2 {
   color:#393939;
 }
-
-h3, h4, h5, h6 {
-  color:#494949;
+ 
+h4, h5, h6 {
+  color:#333333;
 }
 
 a {
@@ -257,4 +265,9 @@ footer {
     font-size:12pt;
     color:#444;
   }
+}
+
+
+span.tech{
+    color:dimgray;
 }
