@@ -18,7 +18,6 @@ github_username:  purpleblues
 markdown: kramdown
 timezone : Asia/Seoul
 highlighter: rouge
-permalink: pretty
 
 kramdown:
   input: GFM
