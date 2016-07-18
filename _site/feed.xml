@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <title>Life of Purple</title>
+    <description>This is blog of purple
 </description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 18 Jul 2016 18:48:03 +0900</pubDate>
-    <lastBuildDate>Mon, 18 Jul 2016 18:48:03 +0900</lastBuildDate>
+    <link>http://purpleblues.github.io/</link>
+    <atom:link href="http://purpleblues.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 18 Jul 2016 19:09:45 +0900</pubDate>
+    <lastBuildDate>Mon, 18 Jul 2016 19:09:45 +0900</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -28,13 +28,34 @@
 
 </description>
         <pubDate>Mon, 18 Jul 2016 18:47:49 +0900</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2016/07/18/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2016/07/18/welcome-to-jekyll.html</guid>
+        <link>http://purpleblues.github.io/jekyll/update/2016/07/18/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://purpleblues.github.io/jekyll/update/2016/07/18/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>
         
         <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Study On Db Journal</title>
+        <description>&lt;h1 id=&quot;delete-mode-journal-recovery-&quot;&gt;delete mode journal의 recovery 연구&lt;/h1&gt;
+&lt;p&gt;## 7월 16일&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;crash.test에 있는 crash-2.~ 이용&lt;/li&gt;
+  &lt;li&gt;splited/sqlite3-9.c에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;pager_playback()&lt;/code&gt;이 이용 되는 것을 확인&lt;/li&gt;
+  &lt;li&gt;이때 마스터 저널 이름도 확인을 하는데, 이 경우 db 한개만 사용했으므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;zMaster&lt;/code&gt; 가 “”  인 것을 확인 함&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pager_end_transaction()&lt;/code&gt;에서 db-journal 파일을 삭제하는 것을 확인함&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sqlite3_config(SQLITE_CONFIG_LOG,sql_log);&lt;/code&gt; 를 이용해 sqlite3 전역 설정을 바꿀 수 있었다. 이를 이용해 소스의 로그를 변경이 가능했음&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 17 Jul 2016 00:00:00 +0900</pubDate>
+        <link>http://purpleblues.github.io/2016/07/17/Study-on-db-journal.html</link>
+        <guid isPermaLink="true">http://purpleblues.github.io/2016/07/17/Study-on-db-journal.html</guid>
+        
         
       </item>
     

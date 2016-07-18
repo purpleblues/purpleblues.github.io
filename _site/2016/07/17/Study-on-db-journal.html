@@ -1,0 +1,11 @@
+<h1 id="delete-mode-journal-recovery-">delete mode journal의 recovery 연구</h1>
+<p>## 7월 16일</p>
+
+<ul>
+  <li>crash.test에 있는 crash-2.~ 이용</li>
+  <li>splited/sqlite3-9.c에 있는 <code class="highlighter-rouge">pager_playback()</code>이 이용 되는 것을 확인</li>
+  <li>이때 마스터 저널 이름도 확인을 하는데, 이 경우 db 한개만 사용했으므로 <code class="highlighter-rouge">zMaster</code> 가 “”  인 것을 확인 함</li>
+  <li><code class="highlighter-rouge">pager_end_transaction()</code>에서 db-journal 파일을 삭제하는 것을 확인함</li>
+  <li><code class="highlighter-rouge">sqlite3_config(SQLITE_CONFIG_LOG,sql_log);</code> 를 이용해 sqlite3 전역 설정을 바꿀 수 있었다. 이를 이용해 소스의 로그를 변경이 가능했음</li>
+</ul>
+
