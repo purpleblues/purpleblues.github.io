@@ -2,7 +2,6 @@
 layout: post
 title:  "delete mode journal의 recovery 연구"
 date:   2016-07-17 18:47:49 +0900
-categories: sqlite
 ---
 
 - crash.test에 있는 crash-2.~ 이용
