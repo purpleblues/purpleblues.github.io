@@ -20,4 +20,10 @@ timezone : Asia/Seoul
 highlighter: rouge
 
 kramdown:
-  input: GFM
+    input: GFM
+    hard_wrap: false
+      
+gems:
+    - jekyll-seo-tag
+    - jekyll-coffeescript
+    - jekyll-paginate
