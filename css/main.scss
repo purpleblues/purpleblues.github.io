@@ -25,9 +25,7 @@ $content-width:    800px;
 $on-palm:          600px;
 $on-laptop:        800px;
 
-.code {
-	font-family:  Consolas, Menlo;
-}
+
 
 
 // Use media queries like this:
@@ -51,3 +49,8 @@ $on-laptop:        800px;
         "layout",
         "syntax-highlighting"
 ;
+
+
+.code {
+	font-family:  Consolas, Menlo;
+}
