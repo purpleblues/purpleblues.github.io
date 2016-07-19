@@ -6,10 +6,9 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Life of Purple
+title: life of purple
 email: purpleblues568@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-    This is blog of purple
+#description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://purpleblues.github.io" # the base hostname & protocol for your site
 github_username:  purpleblues
