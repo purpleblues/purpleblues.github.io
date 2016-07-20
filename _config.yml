@@ -16,7 +16,7 @@ github_username:  purpleblues
 # Build settings
 markdown: kramdown
 timezone : Asia/Seoul
-#highlighter: redcarpet
+highlighter: rouge
 
 kramdown:
     input: GFM
