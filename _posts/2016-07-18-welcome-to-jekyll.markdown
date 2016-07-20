@@ -10,11 +10,22 @@ To add new posts, simply add a file in the `_posts` directory that follows the c
 
 Jekyll also offers powerful support for code snippets:
 
-```ruby
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-#=> prints 'Hi, Tom' to STDOUT.
+```c
+//write mxFrame number to master journal
+
+Pager *pPager;   /* Pager associated with pBt */
+
+sqlite3BtreeEnter(pBt);
+pPager = sqlite3BtreePager(pBt);
+if( pagerUseWal(pPager) ){
+    char mxFrame[12];
+    sprintf(mxFrame, "%u", pPager->pWal->hdr.mxFrame);
+    rc = sqlite3OsWrite(pMaster, mxFrame, sqlite3Strlen30(mxFrame)+1, offset);
+    offset += sqlite3Strlen30(mxFrame)+1;
+}
+// rc = sqlite3PagerExclusiveLock(pPager);
+sqlite3BtreeLeave(pBt);
+//end
 ```
 
 

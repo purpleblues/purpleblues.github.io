@@ -16,12 +16,12 @@ github_username:  purpleblues
 # Build settings
 markdown: kramdown
 timezone : Asia/Seoul
-highlighter: rouge
+#highlighter: redcarpet
 
 kramdown:
     input: GFM
     hard_wrap: false
-      
+
 gems:
     - jekyll-seo-tag
     - jekyll-coffeescript
