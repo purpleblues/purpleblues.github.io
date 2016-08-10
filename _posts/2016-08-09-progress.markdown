@@ -24,16 +24,16 @@ title:  "진행상황"
 
 `COMMIT`을 수행할 경우 `vdbeCommit()`에서 master journal 이 필요한지 아닌지를 결정하는데, 이때 WAL 의 경우 아예 필요 없다고 0으로 배열에 박아놓은 부분이 있다. 그래서 이 부분을 1로 바꾸었다.
 
-![aMJNeeded](/_posts/2016-08-09-progress/aMJNeeded.png)
+![aMJNeeded](/images/2016-08-09-progress/aMJNeeded.png)
 
 master journal에 각 db의 journal name을 저장하는 부분에서 WAL의 경우 .db-mj-store 파일 이름을 저장하도록 하였다. 이를 위해 `Pager` 구조체에 `char* zMasterStore` 라는 변수를 추가하고 함수를 추가하였다.
 
-![master_store](/_posts/2016-08-09-progress/master_store.png)
+![master_store](/images/2016-08-09-progress/master_store.png)
 
 
 `sqlite3PagerCommitPhaseOne()` 에서 기존 journal mode에서는 `writeMasterJournal()` 이라는 함수로 journal file에 master journal file name을 저장한다. 이 과정은 WAL일때는 일어나지 않도록 분기 되어있는데, WAL에서도 비슷한 작업을 하도록 `writeWalMasterStoreFile()` 라는 함수를 만들어서 실행하도록 하였다. 이 함수에서는 .db-mj-store파일에 master journal file name과 mxFrame을 저장한다. 이 파일의 포맷은 아직 확정되지는 않았다. mxFrame에 대해서는 아래에 설명하도록 하겠다.
 
-![commit_write_master_store](/_posts/2016-08-09-progress/commit_write_master_store.png)
+![commit_write_master_store](/images/2016-08-09-progress/commit_write_master_store.png)
 
 
 crash가 발생하여 복구를 해야할 경우, `walIndexRecover()`라는 함수에서 이를 수행하게 된다. 이 함수에서는 WAL파일의 frame들을 차례로 읽어들이면서 valid한 프레임을 남기고 index를 만든다. 이 과정에서 multi-database transaction이 완전히 수행 되지 않았다면 WAL파일에서 transaction 시작 이전의 프레임들만 남겨야한다. 이때 시작 이전 프레임을 뜻하는 것이 `mxFrame`이다. 트랜잭션을 시작하기 전 WAL 파일의 frame갯수를 저장하고 복구를 해야하는 경우 mxFrame 이상의 프레임이 있더라도 이를 무시하게 하는 것이다. 이를 통해 atomicity를 보장하게 할 수 있다.
