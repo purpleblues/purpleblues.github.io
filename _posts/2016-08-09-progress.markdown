@@ -19,7 +19,7 @@ title:  "진행 상황"
 
 ### Solution
 
-이를 해결하기 위한 solution을 고안하였다. 크게 두 부분으로 나눌 수 있다. WAL 모드에서 기존 journaling mode와 동일하게 master journal file을 만들고 ``.db-mj-store`` 라는 파일 이름을 저장하는 부분과 ``.db-mj-store`` 파일에 master journal file name 과 `mxFrame`을 저장하는 것이다.
+이를 해결하기 위한 solution을 고안하였다. 크게 두 부분으로 나눌 수 있다. WAL 모드에서 기존 journaling mode와 동일하게 master journal file을 만들고 ``.db-mj-stored`` 라는 파일 이름을 저장하는 부분과 ``.db-mj-stored`` 파일에 master journal file name 과 `mxFrame`을 저장하는 것이다.
 
 
 
@@ -30,14 +30,14 @@ title:  "진행 상황"
 
 ![aMJNeeded](/images/2016-08-09-progress/aMJNeeded.png){:width="60%"}
 
-master journal에 각 db의 journal name을 저장하는 부분에서 WAL의 경우 `.db-mj-store` 파일 이름을 저장하도록 하였다. 이를 위해 `Pager` 구조체에 `char* zMasterStore` 라는 변수를 추가하고 함수를 추가하였다.
+master journal에 각 db의 journal name을 저장하는 부분에서 WAL의 경우 `.db-mj-stored` 파일 이름을 저장하도록 하였다. 이를 위해 `Pager` 구조체에 `char* zMasterStore` 라는 변수를 추가하고 함수를 추가하였다.
 
 #### \- Master store file
 
 ![master_store](/images/2016-08-09-progress/master_store.png){:width="60%"}
 
 
-`sqlite3PagerCommitPhaseOne()` 에서 기존 journal mode에서는 `writeMasterJournal()` 이라는 함수로 journal file에 master journal file name을 저장한다. 이 과정은 WAL일때는 일어나지 않도록 분기 되어있는데, WAL에서도 비슷한 작업을 하도록 `writeWalMasterStoreFile()` 라는 함수를 만들어서 실행하도록 하였다. 이 함수에서는 `.db-mj-store`파일에 master journal file name과 mxFrame을 저장한다. 이 파일의 포맷은 아직 확정되지는 않았다. mxFrame에 대해서는 아래에 설명하도록 하겠다.
+`sqlite3PagerCommitPhaseOne()` 에서 기존 journal mode에서는 `writeMasterJournal()` 이라는 함수로 journal file에 master journal file name을 저장한다. 이 과정은 WAL일때는 일어나지 않도록 분기 되어있는데, WAL에서도 비슷한 작업을 하도록 `writeWalMasterStoreFile()` 라는 함수를 만들어서 실행하도록 하였다. 이 함수에서는 `.db-mj-stored`파일에 master journal file name과 mxFrame을 저장한다. 이 파일의 포맷은 아직 확정되지는 않았다. mxFrame에 대해서는 아래에 설명하도록 하겠다.
 
 ![commit_write_master_store](/images/2016-08-09-progress/commit_write_master_store.png){:width="60%"}
 
@@ -52,17 +52,17 @@ test.db를 열어서 test2.db를 `ATTACH` 하고 transaction을 시작한다. �
 
 `test.db-wal`
 `test.db-shm`
-`test.db-mj-store`
+`test.db-mj-stored`
 
 `test2.db-wal`
 `test2.db-shm`
-`test2.db-mj-store`
+`test2.db-mj-stored`
 
 `test.db-mjXXXX` (XXXX는 랜덤)
 
 
-각각의 `.db-mj-store`에서는 test.db-mjXXXX와 트랜잭션을 시작하기 전 각각의 WAL의 mxFrame을 기록하고 있다.
-이때 crash가 발생할 경우 각 db를 열때 read를 수행할때 복구를 시행하는데, 이때 `.db-mj-store`파일을 열어서 기존 master journal을 확인하고 기존의 journaling mode와 같은 원리로 `.db-mj-store`파일의 `hot or not hot`을 구분한다. 복구가 필요할 경우 mxFrame까지 복구를 한다.
+각각의 `.db-mj-stored`에서는 test.db-mjXXXX와 트랜잭션을 시작하기 전 각각의 WAL의 mxFrame을 기록하고 있다.
+이때 crash가 발생할 경우 각 db를 열때 read를 수행할때 복구를 시행하는데, 이때 `.db-mj-stored`파일을 열어서 기존 master journal을 확인하고 기존의 journaling mode와 같은 원리로 `.db-mj-stored`파일의 `hot or not hot`을 구분한다. 복구가 필요할 경우 mxFrame까지 복구를 한다.
 
 
 
